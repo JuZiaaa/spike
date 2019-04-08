@@ -6,14 +6,16 @@ package com.juzi.redis;
  * @time: 23:55
  */
 public class UserKey extends BasePrefix{
-    private UserKey(String prefix) {
-        super(prefix);
+
+    public static final int TOKEN_EXPRIRE = 3600 * 24 * 2;
+
+    private String prefix;
+
+    private UserKey(int expireSeconds,String prefix) {
+        super(expireSeconds,prefix);
+        this.prefix = prefix;
     }
 
-    private UserKey(int expireSeconds, String prefix) {
-        super(expireSeconds, prefix);
-    }
-
-   public static UserKey getById = new UserKey(30,"id");
-   public static UserKey getByName = new UserKey(30,"name");
+   public static UserKey token = new UserKey(TOKEN_EXPRIRE,"tk");
+   public static UserKey getById = new UserKey(0,"id");
 }

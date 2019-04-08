@@ -31,16 +31,16 @@ public class DemoController {
         return "hello";
     }
 
-    @RequestMapping("/setAndGet")
-    @ResponseBody
-    public Result<String> setAndGet(){
-        User user =new User();
-        user.setId(1);
-        user.setName("1111");
-        redisService.set(UserKey.getById,"1",user);
-        User user1 = redisService.get(UserKey.getById,"1",User.class);
-        return Result.success(user1.getName());
-    }
+//    @RequestMapping("/setAndGet")
+//    @ResponseBody
+//    public Result<String> setAndGet(){
+//        User user =new User();
+//        user.setId(1);
+//        user.setName("1111");
+//        redisService.set(UserKey.getById,"1",user);
+//        User user1 = redisService.get(UserKey.getById,"1",User.class);
+//        return Result.success(user1.getName());
+//    }
 
     @RequestMapping("/getSuccess")
     @ResponseBody

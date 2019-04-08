@@ -19,9 +19,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/getUser")
-    public String getUserById(){
-        User user = userService.getUserById(1);
-        return user.getName();
-    }
+//    @RequestMapping(value = "/getUser")
+//    public String getUserById(){
+//        User user = userService.getUserById(1);
+//        return user.getName();
+//    }
 }
