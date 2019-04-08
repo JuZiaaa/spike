@@ -30,7 +30,6 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.8" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:2.1.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.16" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.16" />
           <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.16" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.0.14.Final" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
@@ -52,11 +51,10 @@
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.1.3.RELEASE" />
           <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:3.2.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.1.5.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:1.3.1" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.5" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.3.1" />
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.0.2" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.35" />
           <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.15" />
           <element id="library" level="project" name="Maven: redis.clients:jedis:2.9.1" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
@@ -64,6 +62,15 @@
           <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.38" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.6" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.11" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-validation:2.1.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.16" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-amqp:2.1.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-messaging:5.1.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.amqp:spring-rabbit:2.1.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.amqp:spring-amqp:2.1.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.retry:spring-retry:1.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: com.rabbitmq:amqp-client:5.4.3" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.1.5.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">
