@@ -12,4 +12,6 @@ public class SpikeKey extends BasePrefix{
     }
     public static SpikeKey isGoodsOver = new SpikeKey(0, "go");
 
+    public static SpikeKey getSpikePath = new SpikeKey(60, "gsp");
+
 }

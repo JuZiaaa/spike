@@ -7,6 +7,7 @@ import com.juzi.domain.User;
 import com.juzi.redis.GoodsKey;
 import com.juzi.redis.RedisService;
 import com.juzi.redis.SpikeKey;
+import com.juzi.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,4 +87,15 @@ public class SpikeService {
     }
 
 
+
+    public boolean checkSpikePath(Long id, long goodsId,String path) {
+        String oldPath = redisService.get(SpikeKey.getSpikePath,id +","+goodsId , String.class);
+        return oldPath.equals(path);
+    }
+    public String createSpikePath(Long id, long goodsId) {
+        //生成随机数
+        String path = UUIDUtil.uuid();
+        redisService.set(SpikeKey.getSpikePath,id +","+goodsId , path);
+        return path;
+    }
 }

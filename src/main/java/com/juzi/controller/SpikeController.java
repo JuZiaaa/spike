@@ -12,10 +12,12 @@ import com.juzi.service.GoodsService;
 import com.juzi.service.OrderService;
 import com.juzi.service.SpikeService;
 import com.juzi.vo.GoodsVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,14 +63,20 @@ public class SpikeController implements InitializingBean{
         }
     }
 
-    @RequestMapping(value = "/do_spike")
+    @RequestMapping(value = "/{path}/do_spike")
     @ResponseBody
-    public Result<Integer> spike(Model model, User user, @RequestParam("goodsId")long goodsId){
+    public Result<Integer> spike(Model model, User user, @RequestParam("goodsId")long goodsId,
+                                @PathVariable("path")String path){
 
         model.addAttribute("user",user);
         //判断用户是否登录
         if(null == user){
            return Result.error(CodeMsg.SESSION_ERROR);
+        }
+        //验证path
+        boolean b = spikeService.checkSpikePath(user.getId(),goodsId,path);
+        if(!b){
+            return Result.error(CodeMsg.REQUEST_ILLEGAL);
         }
         //查询内存
         if(localOverMap.get(goodsId)){
@@ -105,4 +113,17 @@ public class SpikeController implements InitializingBean{
         return Result.success(result);
     }
 
+    @RequestMapping(value = "path")
+    @ResponseBody
+    public Result<String> getPath(Model model, User user, @RequestParam("goodsId")long goodsId){
+        model.addAttribute("user",user);
+        //判断用户是否登录
+        if(null == user){
+            return Result.error(CodeMsg.SESSION_ERROR);
+        }
+
+        String path = spikeService.createSpikePath(user.getId(),goodsId);
+
+        return Result.success(path);
+    }
 }
