@@ -15,10 +15,14 @@ public class Result<T> {
         return new Result<T>(CodeMsg.SUCCESS,data);
     }
 
-    public static <T> Result error(CodeMsg codeMsg,T data){
-        return new Result<T>(codeMsg,data);
+    public static <T> Result error(CodeMsg codeMsg){
+        return new Result<T>(codeMsg);
     }
 
+    private Result(CodeMsg codeMsg){
+        this.code = codeMsg.getCode();
+        this.msg = codeMsg.getMsg();
+    }
     private Result(CodeMsg codeMsg,T data){
         if(null == codeMsg){
             return;

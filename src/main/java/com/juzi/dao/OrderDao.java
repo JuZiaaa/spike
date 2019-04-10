@@ -4,6 +4,7 @@ import com.juzi.domain.OrderInfo;
 import com.juzi.domain.SpikeOrder;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 
 /**
@@ -22,4 +23,7 @@ public interface OrderDao {
     @Insert("insert into spike_order(user_id, goods_id, order_id)" +
             "values(#{userId}, #{goodsId}, #{orderId})")
     void createSpikeOrder(SpikeOrder spikeOrder);
+
+    @Select("select * from order_info where id = #{orderId}")
+    OrderInfo getOrderById(long orderId);
 }

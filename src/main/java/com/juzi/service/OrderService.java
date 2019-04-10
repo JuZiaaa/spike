@@ -3,6 +3,8 @@ package com.juzi.service;
 import com.juzi.dao.OrderDao;
 import com.juzi.domain.OrderInfo;
 import com.juzi.domain.SpikeOrder;
+import com.juzi.redis.OrderKey;
+import com.juzi.redis.RedisService;
 import com.juzi.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class OrderService {
     GoodsService goodsService;
     @Autowired
     OrderDao orderDao;
+    @Autowired
+    RedisService redisService;
 
     @Transactional
     public OrderInfo createOrder(Long id, long goodsId){
@@ -37,15 +41,26 @@ public class OrderService {
         orderInfo.setOrderChannel(1);
         orderInfo.setStatus(0);
         orderInfo.setCreateDate(new Date());
-        long orderId = orderDao.insert(orderInfo);
+        orderDao.insert(orderInfo);
 
         //生成秒杀订单
         SpikeOrder spikeOrder = new SpikeOrder();
-        spikeOrder.setOrderId(orderId);
+        spikeOrder.setOrderId(orderInfo.getId());
         spikeOrder.setUserId(id);
         spikeOrder.setGoodsId(goodsId);
         orderDao.createSpikeOrder(spikeOrder);
 
+        redisService.set(OrderKey.getSpikeOrderByUserIdAndGoodsId, ""+ id +"_"+goodsId, spikeOrder);
+
+
         return orderInfo;
+    }
+
+    public OrderInfo getOrderById(long orderId) {
+        return orderDao.getOrderById(orderId);
+
+    }
+    public SpikeOrder getSpikeOrderByUserIdAndGoodsId(Long id, long goodsId) {
+        return redisService.get(OrderKey.getSpikeOrderByUserIdAndGoodsId, ""+ id +"_"+goodsId,SpikeOrder.class);
     }
 }

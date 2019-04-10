@@ -19,6 +19,6 @@ public interface SpikeDao {
     @Select("select stock_count from spike_goods where goods_id = #{goodsId}")
     int queryStock(long goodsId);
 
-    @Update("update spike_goods set stock_count = stock_count - 1 where goods_id = #{goodsId}")
-    void reduceStockByGoodsId(long goodsId);
+    @Update("update spike_goods set stock_count = stock_count - 1 where goods_id = #{goodsId} and stock_count > 0")
+    int reduceStockByGoodsId(long goodsId);
 }

@@ -1,5 +1,7 @@
 package com.juzi.controller;
 
+import com.juzi.activemq.MqConsumer;
+import com.juzi.activemq.MqProduct;
 import com.juzi.domain.User;
 import com.juzi.redis.KeyPrefix;
 import com.juzi.redis.RedisService;
@@ -24,6 +26,10 @@ public class DemoController {
 
     @Autowired
     RedisService redisService;
+    @Autowired
+    MqConsumer mqConsumer;
+    @Autowired
+    MqProduct mqProduct;
 
     @RequestMapping("/thymeleaf")
     public String thymeleaf(Model model){
@@ -45,12 +51,18 @@ public class DemoController {
     @RequestMapping("/getSuccess")
     @ResponseBody
     public Result<String> getSuccess(){
+        mqProduct.sendMsg("out.queue","11111");
+        mqProduct.sendMsg("out.queue","222222222");
+        mqProduct.sendMsg("out.queue","3333333");
+        mqProduct.sendMsg("out.queue","44444444");
+        System.out.println("111111111111");
+//        mqConsumer.receiveMsg("out.queue");
         return Result.success("成功了");
     }
 
-    @ResponseBody
-    @RequestMapping("/getError")
-    public Result<String> geterror(){
-        return Result.error(CodeMsg.SERVER_ERROR,"失败了");
-    }
+//    @ResponseBody
+//    @RequestMapping("/getError")
+//    public Result<String> geterror(){
+//        return Result.error(CodeMsg.SERVER_ERROR,"失败了");
+//    }
 }

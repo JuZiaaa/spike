@@ -45,8 +45,6 @@ public class GoodsController{
         @RequestMapping(value="/to_list")
         public String list(HttpServletRequest request, HttpServletResponse response, Model model, User user) {
             model.addAttribute("user", user);
-            List<GoodsVo> goodsList = goodsService.listGoodsVo();
-            model.addAttribute("goodsList", goodsList);
             return render(request, response, model, "goods_list", GoodsKey.getGoodsList, "");
         }
 
@@ -61,6 +59,11 @@ public class GoodsController{
                 out(response, html);
                 return null;
             }
+
+            //查询数据库
+            List<GoodsVo> goodsList = goodsService.listGoodsVo();
+            model.addAttribute("goodsList", goodsList);
+
             //手动渲染
             WebContext ctx = new WebContext(request,response,
                     request.getServletContext(),request.getLocale(), model.asMap());
