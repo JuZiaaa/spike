@@ -14,4 +14,6 @@ public class SpikeKey extends BasePrefix{
 
     public static SpikeKey getSpikePath = new SpikeKey(60, "gsp");
 
+    public static SpikeKey getSpikeVerifyCode = new SpikeKey(300, "gsp");
+
 }

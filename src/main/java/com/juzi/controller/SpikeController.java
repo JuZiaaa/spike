@@ -22,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -115,15 +120,48 @@ public class SpikeController implements InitializingBean{
 
     @RequestMapping(value = "path")
     @ResponseBody
-    public Result<String> getPath(Model model, User user, @RequestParam("goodsId")long goodsId){
+    public Result<String> getPath(Model model, User user, @RequestParam("goodsId")long goodsId,@RequestParam("verifyCode")Integer verifyCode){
         model.addAttribute("user",user);
         //判断用户是否登录
         if(null == user){
             return Result.error(CodeMsg.SESSION_ERROR);
         }
-
+        //验证验证码
+        boolean b = spikeService.checkVerifyCode(user.getId(),goodsId,verifyCode);
+        if(!b){
+            return Result.error(CodeMsg.VERIFYCODE_ERROR);
+        }
         String path = spikeService.createSpikePath(user.getId(),goodsId);
 
         return Result.success(path);
     }
+
+    /**
+     * 生成验证码
+     * @param user
+     * @param goodsId
+     * @return
+     */
+    @RequestMapping(value = "verifyCode")
+    @ResponseBody
+    public Result<String> getMiaoshaVerifyCod(HttpServletResponse response, User user, @RequestParam("goodsId")long goodsId){
+        //判断用户是否登录
+        if(null == user){
+            return Result.error(CodeMsg.SESSION_ERROR);
+        }
+
+        try {
+            BufferedImage verifyCode = spikeService.createVerifyCode(user, goodsId);
+            OutputStream outputStream = response.getOutputStream();
+            ImageIO.write(verifyCode,"JPEG",outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 }
