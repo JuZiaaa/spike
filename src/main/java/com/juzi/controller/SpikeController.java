@@ -1,8 +1,8 @@
 package com.juzi.controller;
 
+import com.juzi.access.AccessLimit;
 import com.juzi.activemq.MqProduct;
 import com.juzi.activemq.SpikeMessage;
-import com.juzi.domain.OrderInfo;
 import com.juzi.domain.User;
 import com.juzi.redis.GoodsKey;
 import com.juzi.redis.RedisService;
@@ -12,7 +12,6 @@ import com.juzi.service.GoodsService;
 import com.juzi.service.OrderService;
 import com.juzi.service.SpikeService;
 import com.juzi.vo.GoodsVo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -118,6 +117,8 @@ public class SpikeController implements InitializingBean{
         return Result.success(result);
     }
 
+
+    @AccessLimit(seconds=5,maxCount=5,needLogin=true)
     @RequestMapping(value = "path")
     @ResponseBody
     public Result<String> getPath(Model model, User user, @RequestParam("goodsId")long goodsId,@RequestParam("verifyCode")Integer verifyCode){

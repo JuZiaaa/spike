@@ -33,29 +33,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver{
 
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-        HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
-
-        String paramToken = request.getParameter(UserService.COOKI_NAME_TOKEN);
-        String cookieToken = getCookieValue(request, UserService.COOKI_NAME_TOKEN);
-        if(StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)) {
-            return null;
-        }
-        String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
-        return userService.getByToken(response, token);
-    }
-
-    private String getCookieValue(HttpServletRequest request, String cookiName) {
-        Cookie[]  cookies = request.getCookies();
-        if(null == cookies){
-            return null;
-        }
-        for(Cookie cookie : cookies) {
-            if(cookie.getName().equals(cookiName)) {
-                return cookie.getValue();
-            }
-        }
-        return null;
+        return UserContext.getUser();
     }
 
 }

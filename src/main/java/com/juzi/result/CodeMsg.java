@@ -49,11 +49,11 @@ public class CodeMsg {
         return msg;
     }
 
+
     @Override
     public String toString() {
-        return "CodeMsg{" +
-                "code=" + code +
-                ", msg='" + msg + '\'' +
-                '}';
+        return "{\"code\":" + code +
+                ", \"msg\":\"" + msg + '\"' +
+                "}";
     }
 }

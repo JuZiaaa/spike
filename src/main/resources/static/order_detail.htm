@@ -108,9 +108,11 @@ function getOrderDetail(){
 				layer.msg(data.msg);
 			}
 		},
-		error:function(){
-			layer.msg("客户端请求有误");
-		}
+        error: function (Request) {
+            var obj= JSON.parse(JSON.parse(Request.responseText).message);//使用JSON转换
+            console.log(obj.msg);
+            layer.msg(obj.msg);//获取抛出的错误信息
+        }
 	});
 }
 
